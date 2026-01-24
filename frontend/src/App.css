@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f8fafc;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+.App-header {
+  background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+  color: white;
+  padding: 60px 20px 40px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.App-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.App-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.App-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px 100px;
+}
+
+.chapter-content {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.chapter-content h2 {
+  color: #1E293B;
+  font-size: 1.8rem;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #E2E8F0;
+}
+
+.chapter-content h2:first-child {
+  margin-top: 0;
+}
+
+.chapter-content p {
+  color: #475569;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+  user-select: text;
+}
+
+.demo-instructions {
+  background: #EFF6FF;
+  border: 2px solid #3B82F6;
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+.demo-instructions h3 {
+  color: #1E40AF;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.demo-instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.demo-instructions li {
+  color: #1E40AF;
+  font-size: 1.05rem;
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+}
+
+.demo-instructions li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .App-header {
+    padding: 40px 20px 30px;
+  }
+
+  .chapter-content {
+    padding: 24px;
+  }
+
+  .chapter-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .demo-instructions {
+    padding: 20px;
+  }
+}

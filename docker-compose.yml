@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # Auth Service (better-auth)
+  auth:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: rag-auth
+    ports:
+      - "3001:3001"
+    environment:
+      - AUTH_PORT=3001
+      - AUTH_BASE_URL=${AUTH_BASE_URL:-http://localhost:3001}
+      - AUTH_SECRET=${SECRET_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - BACKEND_URL=${BACKEND_URL:-http://localhost:8000}
+    restart: unless-stopped
+    networks:
+      - rag-network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: rag-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - QDRANT_URL=${QDRANT_URL}
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_REDIRECT_URI=${GOOGLE_REDIRECT_URI}
+      - SECRET_KEY=${SECRET_KEY}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - CORS_ORIGINS=${CORS_ORIGINS}
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - rag-network
+
+  # Optional: Local Postgres (if not using Neon)
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: rag-postgres
+  #   environment:
+  #     - POSTGRES_DB=humanoid_rag
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - rag-network
+
+networks:
+  rag-network:
+    driver: bridge
+
+# volumes:
+#   postgres_data:

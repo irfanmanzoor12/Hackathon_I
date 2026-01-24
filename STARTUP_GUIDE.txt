@@ -1,0 +1,98 @@
+========================================
+PHYSICAL AI RAG CHATBOT - STARTUP GUIDE
+========================================
+
+ALL ISSUES FIXED! Ready to run!
+
+========================================
+OPTION 1: Quick Start (Double-click)
+========================================
+
+1. Double-click: START_BACKEND.bat
+   - Backend will start on http://localhost:8000
+
+2. Double-click: START_FRONTEND.bat
+   - Frontend will open automatically on http://localhost:3000
+
+========================================
+OPTION 2: Manual Start (PowerShell)
+========================================
+
+TERMINAL 1 - Backend:
+---------------------
+cd D:\Irfan\humanoid\backend
+.venv\Scripts\Activate.ps1
+uvicorn app.main:app --reload
+
+TERMINAL 2 - Frontend:
+---------------------
+cd D:\Irfan\humanoid\frontend
+npm start
+
+========================================
+FIRST TIME SETUP ONLY
+========================================
+
+If this is your first time, run these ONCE:
+
+1. Index Chapter 1 content:
+   cd D:\Irfan\humanoid\backend
+   .venv\Scripts\Activate.ps1
+   python scripts\index_chapter1.py
+
+========================================
+VERIFY IT'S WORKING
+========================================
+
+1. Backend Health:
+   http://localhost:8000/health
+   Should see: {"status":"healthy"}
+
+2. API Documentation:
+   http://localhost:8000/docs
+
+3. Frontend:
+   http://localhost:3000
+   Should see test page with chatbot button
+
+========================================
+TEST THE CHATBOT
+========================================
+
+1. Click blue floating button (bottom-right)
+2. Sign in with Google
+3. Ask: "What is ROS 2?"
+4. Watch the avatar animate!
+5. Select text on page -> ask about it
+6. Try "Personalize" button
+7. Try "Translate" button
+
+========================================
+YOUR CREDENTIALS (Already Configured)
+========================================
+
+✓ Google OAuth: Configured
+✓ Neon Postgres: Connected
+✓ Qdrant Cloud: Connected
+✓ OpenAI API: Ready
+
+========================================
+TROUBLESHOOTING
+========================================
+
+Q: Backend won't start?
+A: Check if port 8000 is in use:
+   netstat -ano | findstr :8000
+
+Q: Frontend won't start?
+A: Already fixed! Just run npm start
+
+Q: Database errors?
+A: All credentials are configured in .env
+
+========================================
+READY TO GO!
+========================================
+
+Just double-click the START_*.bat files!
+

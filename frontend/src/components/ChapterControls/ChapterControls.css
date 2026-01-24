@@ -1,0 +1,72 @@
+.chapter-controls {
+  margin: 20px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chapter-controls-container {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.chapter-personalize-btn,
+.chapter-translate-btn {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.chapter-personalize-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.chapter-personalize-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.chapter-translate-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.chapter-translate-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+}
+
+.chapter-personalize-btn:disabled,
+.chapter-translate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.chapter-controls-hint {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .chapter-controls-container {
+    flex-direction: column;
+  }
+
+  .chapter-personalize-btn,
+  .chapter-translate-btn {
+    min-width: 100%;
+  }
+}

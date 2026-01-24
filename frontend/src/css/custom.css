@@ -1,0 +1,166 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Custom styles for Physical AI book */
+.hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.chapter-personalize-btn,
+.chapter-translate-btn {
+  display: inline-block;
+  margin: 10px 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.chapter-personalize-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.chapter-personalize-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.chapter-translate-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.chapter-translate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+}
+
+.personalization-banner {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border-left: 4px solid var(--ifm-color-primary);
+  padding: 16px;
+  margin: 20px 0;
+  border-radius: 8px;
+}
+
+.translation-banner {
+  background: linear-gradient(135deg, #f093fb15 0%, #f5576c15 100%);
+  border-left: 4px solid #f5576c;
+  padding: 16px;
+  margin: 20px 0;
+  border-radius: 8px;
+  direction: rtl;
+  text-align: right;
+}
+
+/* Code blocks with robotics context */
+.prism-code {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Highlighted important notes */
+.admonition-note {
+  border-left-color: #667eea;
+}
+
+.admonition-tip {
+  border-left-color: #25c2a0;
+}
+
+.admonition-warning {
+  border-left-color: #f5576c;
+}
+
+/* Hardware requirements table */
+.hardware-table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+}
+
+.hardware-table th,
+.hardware-table td {
+  padding: 12px;
+  border: 1px solid var(--ifm-table-border-color);
+  text-align: left;
+}
+
+.hardware-table th {
+  background: var(--ifm-color-primary);
+  color: white;
+  font-weight: 600;
+}
+
+/* Module cards */
+.module-card {
+  background: var(--ifm-card-background-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.module-card h3 {
+  margin-top: 0;
+  color: var(--ifm-color-primary);
+}
+
+/* Week breakdown */
+.week-item {
+  padding: 16px;
+  margin: 12px 0;
+  background: var(--ifm-background-surface-color);
+  border-radius: 8px;
+  border-left: 4px solid var(--ifm-color-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chapter-personalize-btn,
+  .chapter-translate-btn {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+  }
+}

@@ -1,0 +1,382 @@
+/**
+ * AuthModal Styles
+ * Clean, modern authentication modal with background questions
+ */
+
+.auth-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 1rem;
+}
+
+.auth-modal {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme='dark'] .auth-modal {
+  background: #1a202c;
+  color: #e2e8f0;
+}
+
+.auth-modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #64748b;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem;
+  transition: color 0.2s;
+}
+
+.auth-modal__close:hover {
+  color: #0f172a;
+}
+
+[data-theme='dark'] .auth-modal__close:hover {
+  color: #f1f5f9;
+}
+
+.auth-modal__content {
+  padding: 2rem;
+}
+
+.auth-modal__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #0f172a;
+}
+
+[data-theme='dark'] .auth-modal__title {
+  color: #f1f5f9;
+}
+
+.auth-modal__subtitle {
+  color: #64748b;
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+}
+
+[data-theme='dark'] .auth-modal__subtitle {
+  color: #94a3b8;
+}
+
+.auth-modal__error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+[data-theme='dark'] .auth-modal__error {
+  background: #450a0a;
+  border-color: #991b1b;
+  color: #fca5a5;
+}
+
+/* Google Button */
+.auth-modal__google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: white;
+  color: #374151;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.auth-modal__google-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+[data-theme='dark'] .auth-modal__google-btn {
+  background: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+[data-theme='dark'] .auth-modal__google-btn:hover {
+  background: #374151;
+}
+
+/* Divider */
+.auth-modal__divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.auth-modal__divider::before,
+.auth-modal__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+[data-theme='dark'] .auth-modal__divider::before,
+[data-theme='dark'] .auth-modal__divider::after {
+  background: #4a5568;
+}
+
+.auth-modal__divider span {
+  padding: 0 1rem;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+/* Form Fields */
+.auth-modal__field {
+  margin-bottom: 1rem;
+}
+
+.auth-modal__label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+[data-theme='dark'] .auth-modal__label {
+  color: #d1d5db;
+}
+
+.auth-modal__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: white;
+  color: #0f172a;
+}
+
+.auth-modal__input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+[data-theme='dark'] .auth-modal__input {
+  background: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+[data-theme='dark'] .auth-modal__input:focus {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+}
+
+/* Background Options */
+.auth-modal__options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.auth-modal__option {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.auth-modal__option:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.auth-modal__option.selected {
+  border-color: #667eea;
+  background: #eef2ff;
+}
+
+[data-theme='dark'] .auth-modal__option {
+  border-color: #4a5568;
+}
+
+[data-theme='dark'] .auth-modal__option:hover {
+  border-color: #64748b;
+  background: #374151;
+}
+
+[data-theme='dark'] .auth-modal__option.selected {
+  border-color: #818cf8;
+  background: #312e81;
+}
+
+.auth-modal__option input {
+  margin-right: 0.75rem;
+  margin-top: 0.25rem;
+  accent-color: #667eea;
+}
+
+.auth-modal__option-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.auth-modal__option-content strong {
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+[data-theme='dark'] .auth-modal__option-content strong {
+  color: #f1f5f9;
+}
+
+.auth-modal__option-content small {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+[data-theme='dark'] .auth-modal__option-content small {
+  color: #94a3b8;
+}
+
+/* Buttons */
+.auth-modal__btn {
+  padding: 0.875rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.auth-modal__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-modal__btn--primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.auth-modal__btn--primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.auth-modal__btn--secondary {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.auth-modal__btn--secondary:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+
+[data-theme='dark'] .auth-modal__btn--secondary {
+  background: #374151;
+  color: #d1d5db;
+}
+
+[data-theme='dark'] .auth-modal__btn--secondary:hover:not(:disabled) {
+  background: #4b5563;
+}
+
+.auth-modal__btn--full {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.auth-modal__actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.auth-modal__actions .auth-modal__btn {
+  flex: 1;
+}
+
+/* Switch Link */
+.auth-modal__switch {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.auth-modal__switch button {
+  background: none;
+  border: none;
+  color: #667eea;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.auth-modal__switch button:hover {
+  text-decoration: underline;
+}
+
+[data-theme='dark'] .auth-modal__switch {
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .auth-modal__switch button {
+  color: #818cf8;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .auth-modal {
+    max-width: 100%;
+    margin: 0.5rem;
+    border-radius: 12px;
+  }
+
+  .auth-modal__content {
+    padding: 1.5rem;
+  }
+
+  .auth-modal__title {
+    font-size: 1.25rem;
+  }
+
+  .auth-modal__actions {
+    flex-direction: column;
+  }
+}

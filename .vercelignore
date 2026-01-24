@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+.env
+.venv
+venv
+node_modules
+.git
+*.log
+.DS_Store
+backend/.env
+frontend/.env
+tests/
+*.md
+!README.md

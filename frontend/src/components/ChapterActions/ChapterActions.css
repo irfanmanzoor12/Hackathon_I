@@ -1,0 +1,242 @@
+/**
+ * ChapterActions Component Styles
+ * Clean, accessible design with dark/light mode support
+ */
+
+.chapter-actions {
+  margin: 1.5rem 0 2rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 1px solid #dee2e6;
+}
+
+[data-theme='dark'] .chapter-actions {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  border-color: #4a5568;
+}
+
+/* Guest message */
+.chapter-actions--guest {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  border-color: #ffc107;
+}
+
+[data-theme='dark'] .chapter-actions--guest {
+  background: linear-gradient(135deg, #744210 0%, #5a3307 100%);
+  border-color: #d69e2e;
+}
+
+.chapter-actions__guest-message {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: #856404;
+}
+
+[data-theme='dark'] .chapter-actions__guest-message {
+  color: #fbd38d;
+}
+
+.chapter-actions__icon {
+  font-size: 1.25rem;
+}
+
+/* Header */
+.chapter-actions__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.chapter-actions__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+[data-theme='dark'] .chapter-actions__title {
+  color: #e2e8f0;
+}
+
+/* Buttons container */
+.chapter-actions__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Button base styles */
+.chapter-actions__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.chapter-actions__btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.chapter-actions__btn-icon {
+  font-size: 1rem;
+}
+
+/* Personalize button */
+.chapter-actions__btn--personalize {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.chapter-actions__btn--personalize:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.chapter-actions__btn--personalize.active {
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+/* Translate button */
+.chapter-actions__btn--translate {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+.chapter-actions__btn--translate:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(17, 153, 142, 0.4);
+}
+
+.chapter-actions__btn--translate.active {
+  box-shadow: 0 0 0 3px rgba(17, 153, 142, 0.3);
+}
+
+/* Original button */
+.chapter-actions__btn--original {
+  background: #6c757d;
+  color: white;
+}
+
+.chapter-actions__btn--original:hover:not(:disabled) {
+  background: #5a6268;
+}
+
+/* Spinner */
+.chapter-actions__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: chapter-actions-spin 0.8s linear infinite;
+}
+
+@keyframes chapter-actions-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error message */
+.chapter-actions__error {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  color: #721c24;
+  font-size: 0.875rem;
+}
+
+[data-theme='dark'] .chapter-actions__error {
+  background: #742a2a;
+  border-color: #9b2c2c;
+  color: #feb2b2;
+}
+
+/* Content display */
+.chapter-actions__content {
+  margin-top: 1.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chapter-actions__content-header {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.chapter-actions__content--personalized .chapter-actions__content-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.chapter-actions__content--translated .chapter-actions__content-header {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+.chapter-actions__content-body {
+  padding: 1.25rem;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  color: #212529;
+}
+
+[data-theme='dark'] .chapter-actions__content-body {
+  background: #1a202c;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+/* RTL support for Urdu */
+.chapter-actions__content--translated .chapter-actions__content-body {
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .chapter-actions {
+    padding: 1rem;
+  }
+
+  .chapter-actions__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chapter-actions__buttons {
+    width: 100%;
+  }
+
+  .chapter-actions__btn {
+    flex: 1;
+    justify-content: center;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .chapter-actions__btn--original {
+    flex: 0 0 auto;
+  }
+}
