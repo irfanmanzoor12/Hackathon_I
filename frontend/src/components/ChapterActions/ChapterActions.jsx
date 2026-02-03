@@ -18,10 +18,31 @@ export default function ChapterActions() {
   const [activeView, setActiveView] = useState('original');
   const [error, setError] = useState(null);
 
-  // Check authentication status
+  // Check authentication status and listen for changes
   useEffect(() => {
-    const token = localStorage.getItem('rag_token');
-    setIsAuthenticated(!!token);
+    const checkAuth = () => {
+      const token = localStorage.getItem('rag_token');
+      setIsAuthenticated(!!token);
+    };
+
+    // Check on mount
+    checkAuth();
+
+    // Listen for storage changes (when user signs in/out)
+    const handleStorageChange = (e) => {
+      if (e.key === 'rag_token' || e.key === 'rag_user') {
+        checkAuth();
+      }
+    };
+
+    // Also check periodically for same-tab changes
+    const interval = setInterval(checkAuth, 1000);
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
   }, []);
 
   // Get auth headers
@@ -116,13 +137,30 @@ export default function ChapterActions() {
     setError(null);
   };
 
-  // Don't render for unauthenticated users
+  // Show sign-in prompt for unauthenticated users
   if (!isAuthenticated) {
+    const handleSignIn = () => {
+      // Try to open the chat widget which has the auth modal
+      const chatToggle = document.querySelector('.rag-chat-toggle');
+      if (chatToggle) {
+        chatToggle.click();
+      } else {
+        // Fallback: redirect to auth service
+        window.location.href = 'http://localhost:3001/api/auth/sign-in';
+      }
+    };
+
     return (
       <div className="chapter-actions chapter-actions--guest">
         <div className="chapter-actions__guest-message">
           <span className="chapter-actions__icon">🔐</span>
           <span>Sign in to personalize content or translate to Urdu</span>
+          <button
+            onClick={handleSignIn}
+            className="chapter-actions__signin-btn"
+          >
+            Sign In
+          </button>
         </div>
       </div>
     );

@@ -7,15 +7,22 @@ const AUTH_BASE = typeof window !== 'undefined'
   ? (window.ENV?.AUTH_URL || 'http://localhost:3001')
   : 'http://localhost:3001';
 
+const API_BASE = typeof window !== 'undefined'
+  ? (window.ENV?.API_URL || 'http://localhost:8000')
+  : 'http://localhost:8000';
+
 class AuthClient {
   constructor() {
     this.baseUrl = AUTH_BASE;
+    this.apiUrl = API_BASE;
   }
 
   /**
-   * Sign up with email/password and background info
+   * Sign up with email/password
+   * Registers with both better-auth and backend for full functionality
    */
-  async signUp({ email, password, name, softwareBackground, hardwareBackground }) {
+  async signUp({ email, password, name }) {
+    // First register with better-auth
     const response = await fetch(`${this.baseUrl}/api/auth/sign-up/email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -23,9 +30,7 @@ class AuthClient {
       body: JSON.stringify({
         email,
         password,
-        name,
-        software_background: softwareBackground,
-        hardware_background: hardwareBackground
+        name
       })
     });
 
@@ -35,14 +40,48 @@ class AuthClient {
     }
 
     const data = await response.json();
-    this.storeSession(data);
+
+    // Also register with backend to get JWT for chat functionality
+    try {
+      const softwareBg = localStorage.getItem('user_software_background') || 'beginner';
+      const hardwareBg = localStorage.getItem('user_hardware_background') || 'beginner';
+
+      const backendResponse = await fetch(`${this.apiUrl}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          password,
+          name,
+          software_background: softwareBg,
+          hardware_background: hardwareBg
+        })
+      });
+
+      if (backendResponse.ok) {
+        const backendData = await backendResponse.json();
+        // Store the backend JWT token for chat API
+        if (backendData.access_token) {
+          localStorage.setItem('rag_token', backendData.access_token);
+        }
+        if (backendData.user) {
+          localStorage.setItem('rag_user', JSON.stringify(backendData.user));
+        }
+      }
+    } catch (err) {
+      console.warn('Backend registration failed, using better-auth session:', err);
+      this.storeSession(data);
+    }
+
     return data;
   }
 
   /**
    * Sign in with email/password
+   * Authenticates with both better-auth and backend for full functionality
    */
   async signIn({ email, password }) {
+    // First sign in with better-auth
     const response = await fetch(`${this.baseUrl}/api/auth/sign-in/email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -56,7 +95,30 @@ class AuthClient {
     }
 
     const data = await response.json();
-    this.storeSession(data);
+
+    // Also login with backend to get JWT for chat functionality
+    try {
+      const backendResponse = await fetch(`${this.apiUrl}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      if (backendResponse.ok) {
+        const backendData = await backendResponse.json();
+        // Store the backend JWT token for chat API
+        if (backendData.access_token) {
+          localStorage.setItem('rag_token', backendData.access_token);
+        }
+        if (backendData.user) {
+          localStorage.setItem('rag_user', JSON.stringify(backendData.user));
+        }
+      }
+    } catch (err) {
+      console.warn('Backend login failed, using better-auth session:', err);
+      this.storeSession(data);
+    }
+
     return data;
   }
 

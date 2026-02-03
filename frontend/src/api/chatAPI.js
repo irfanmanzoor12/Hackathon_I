@@ -3,7 +3,9 @@
  * Handles all backend communication for RAG chatbot
  */
 
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_BASE = typeof window !== 'undefined'
+  ? (window.ENV?.API_URL || 'http://localhost:8000')
+  : 'http://localhost:8000';
 
 class ChatAPI {
   constructor() {

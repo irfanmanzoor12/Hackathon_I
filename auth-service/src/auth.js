@@ -1,7 +1,6 @@
 /**
  * better-auth configuration
  * Supports email/password and Google OAuth
- * Stores user background (software/hardware level) for personalization
  */
 
 import { betterAuth } from 'better-auth';
@@ -39,29 +38,7 @@ export const auth = betterAuth({
   // Session configuration
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
-    updateAge: 60 * 60 * 24, // Update session every 24 hours
-    cookieCache: {
-      enabled: true,
-      maxAge: 60 * 5 // 5 minutes
-    }
-  },
-
-  // Extended user fields for personalization
-  user: {
-    additionalFields: {
-      software_background: {
-        type: 'string',
-        required: false,
-        defaultValue: null,
-        input: true
-      },
-      hardware_background: {
-        type: 'string',
-        required: false,
-        defaultValue: null,
-        input: true
-      }
-    }
+    updateAge: 60 * 60 * 24
   },
 
   // Base URL configuration
@@ -74,17 +51,5 @@ export const auth = betterAuth({
   trustedOrigins: [
     process.env.FRONTEND_URL || 'http://localhost:3000',
     process.env.BACKEND_URL || 'http://localhost:8000'
-  ],
-
-  // Hooks for custom logic
-  hooks: {
-    after: {
-      signUp: async ({ user }) => {
-        console.log(`New user signed up: ${user.email}`);
-      },
-      signIn: async ({ user }) => {
-        console.log(`User signed in: ${user.email}`);
-      }
-    }
-  }
+  ]
 });

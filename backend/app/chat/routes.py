@@ -118,7 +118,7 @@ async def personalize_content(request: ChatRequest, user: dict = Depends(get_cur
 
         personalized = await personalizer.personalize(request.message, user_profile)
 
-        return {"personalized_content": personalized}
+        return {"response": personalized, "personalized_content": personalized}
 
     except Exception as e:
         logger.error(f"Personalization error: {str(e)}")
@@ -132,7 +132,7 @@ async def translate_content(request: ChatRequest, user: dict = Depends(get_curre
     """
     try:
         translated = await translator.translate(request.message, "Urdu")
-        return {"translated_content": translated}
+        return {"response": translated, "translated_content": translated}
 
     except Exception as e:
         logger.error(f"Translation error: {str(e)}")

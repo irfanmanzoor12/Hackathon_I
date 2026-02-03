@@ -95,13 +95,16 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
         throw new Error('Please select your experience levels');
       }
 
+      // Sign up without background (better-auth basic)
       await authClient.signUp({
         email: formData.email,
         password: formData.password,
-        name: formData.name,
-        softwareBackground: formData.softwareBackground,
-        hardwareBackground: formData.hardwareBackground
+        name: formData.name
       });
+
+      // Store background in localStorage for now
+      localStorage.setItem('user_software_background', formData.softwareBackground);
+      localStorage.setItem('user_hardware_background', formData.hardwareBackground);
 
       onSuccess?.();
       onClose();

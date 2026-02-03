@@ -33,10 +33,29 @@
   gap: 0.75rem;
   font-size: 0.95rem;
   color: #856404;
+  flex-wrap: wrap;
 }
 
 [data-theme='dark'] .chapter-actions__guest-message {
   color: #fbd38d;
+}
+
+.chapter-actions__signin-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: auto;
+  transition: all 0.2s ease;
+}
+
+.chapter-actions__signin-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .chapter-actions__icon {

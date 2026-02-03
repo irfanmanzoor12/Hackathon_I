@@ -157,12 +157,12 @@ const RAGChatWidget = () => {
   };
 
   const handlePersonalize = async () => {
-    if (!inputMessage.trim()) return;
+    if (!inputMessage.trim() && !selectedText) return;
     await sendMessage('personalize');
   };
 
   const handleTranslate = async () => {
-    if (!inputMessage.trim()) return;
+    if (!inputMessage.trim() && !selectedText) return;
     await sendMessage('translate');
   };
 
@@ -333,7 +333,7 @@ const RAGChatWidget = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handlePersonalize}
-                    disabled={!inputMessage.trim() || isLoading}
+                    disabled={(!inputMessage.trim() && !selectedText) || isLoading}
                   >
                     ✨ Personalize
                   </motion.button>
@@ -341,7 +341,7 @@ const RAGChatWidget = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleTranslate}
-                    disabled={!inputMessage.trim() || isLoading}
+                    disabled={(!inputMessage.trim() && !selectedText) || isLoading}
                   >
                     🌐 Translate
                   </motion.button>
