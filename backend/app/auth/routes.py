@@ -12,7 +12,8 @@ import logging
 
 from app.config import settings
 from app.auth.schemas import UserCreate, UserRegister, UserLogin, UserResponse, TokenResponse
-from app.db_selector import get_db_module, use_local_db
+import app.db_selector as db_selector
+from app.db_selector import get_db_module
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -194,7 +195,7 @@ async def login_user(credentials: UserLogin):
         if not user.get('password_hash'):
             raise HTTPException(status_code=401, detail="Please use Google Sign-In for this account")
 
-        if use_local_db:
+        if db_selector.use_local_db:
             from app.database.sqlite_local import verify_password
         else:
             # Add password verification to postgres module if needed
