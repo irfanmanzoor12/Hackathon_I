@@ -42,36 +42,10 @@ class AuthClient {
     const data = await response.json();
 
     // Also register with backend to get JWT for chat functionality
-    try {
-      const softwareBg = localStorage.getItem('user_software_background') || 'beginner';
-      const hardwareBg = localStorage.getItem('user_hardware_background') || 'beginner';
+    await this._syncWithBackend(email, password, name);
 
-      const backendResponse = await fetch(`${this.apiUrl}/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          password,
-          name,
-          software_background: softwareBg,
-          hardware_background: hardwareBg
-        })
-      });
-
-      if (backendResponse.ok) {
-        const backendData = await backendResponse.json();
-        // Store the backend JWT token for chat API
-        if (backendData.access_token) {
-          localStorage.setItem('rag_token', backendData.access_token);
-        }
-        if (backendData.user) {
-          localStorage.setItem('rag_user', JSON.stringify(backendData.user));
-        }
-      }
-    } catch (err) {
-      console.warn('Backend registration failed, using better-auth session:', err);
-      this.storeSession(data);
-    }
+    // Store better-auth session as fallback
+    this.storeSession(data);
 
     return data;
   }
@@ -97,29 +71,59 @@ class AuthClient {
     const data = await response.json();
 
     // Also login with backend to get JWT for chat functionality
+    await this._syncWithBackend(email, password, data?.user?.name || email.split('@')[0]);
+
+    // Store better-auth session as fallback
+    this.storeSession(data);
+
+    return data;
+  }
+
+  /**
+   * Sync with backend - tries login first, then register if needed
+   */
+  async _syncWithBackend(email, password, name) {
     try {
-      const backendResponse = await fetch(`${this.apiUrl}/auth/login`, {
+      // Try login first
+      let backendResponse = await fetch(`${this.apiUrl}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
 
+      // If login fails, try registering
+      if (!backendResponse.ok) {
+        const softwareBg = localStorage.getItem('user_software_background') || 'beginner';
+        const hardwareBg = localStorage.getItem('user_hardware_background') || 'beginner';
+
+        backendResponse = await fetch(`${this.apiUrl}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            password,
+            name,
+            software_background: softwareBg,
+            hardware_background: hardwareBg
+          })
+        });
+      }
+
       if (backendResponse.ok) {
         const backendData = await backendResponse.json();
-        // Store the backend JWT token for chat API
         if (backendData.access_token) {
           localStorage.setItem('rag_token', backendData.access_token);
+          console.log('Backend JWT token stored successfully');
         }
         if (backendData.user) {
           localStorage.setItem('rag_user', JSON.stringify(backendData.user));
         }
+      } else {
+        console.warn('Backend sync failed:', await backendResponse.text());
       }
     } catch (err) {
-      console.warn('Backend login failed, using better-auth session:', err);
-      this.storeSession(data);
+      console.warn('Backend sync error:', err);
     }
-
-    return data;
   }
 
   /**
