@@ -8,8 +8,8 @@ from typing import List, Dict, Optional
 import logging
 
 from app.config import settings
-from app.database.qdrant import search_similar
-from app.database.postgres import get_conversation_history, save_conversation
+import app.db_selector as db_selector
+from app.db_selector import get_db_module
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,8 @@ class MCPContext7Manager:
         """Build multi-context conversation history"""
 
         # Get conversation history (last 7 turns)
-        history = await get_conversation_history(session_id, limit=self.max_history)
+        db = get_db_module()
+        history = await db.get_conversation_history(session_id, limit=self.max_history)
 
         # Build messages array
         messages = []
@@ -144,13 +145,23 @@ class RAGEngine:
                 "metadata": {"source": "user_selection"}
             }]
 
-        # Generate query embedding
-        query_embedding = await self.generate_embedding(query)
+        # Check if Qdrant is available
+        if db_selector.use_local_qdrant:
+            # Fallback: return empty results (no vector search available)
+            logger.info("Qdrant unavailable, using fallback mode (no retrieval)")
+            return []
 
-        # Search in Qdrant
-        results = search_similar(query_embedding, limit=limit)
+        try:
+            # Generate query embedding
+            query_embedding = await self.generate_embedding(query)
 
-        return results
+            # Search in Qdrant
+            from app.database.qdrant import search_similar
+            results = search_similar(query_embedding, limit=limit)
+            return results
+        except Exception as e:
+            logger.warning(f"Qdrant search failed: {str(e)}, using fallback")
+            return []
 
     async def generate_response(
         self,
@@ -195,8 +206,9 @@ class RAGEngine:
             assistant_message = response.choices[0].message.content
 
             # Step 5: Save conversation to database
-            await save_conversation(user_id, session_id, "user", query)
-            await save_conversation(user_id, session_id, "assistant", assistant_message)
+            db = get_db_module()
+            await db.save_conversation(user_id, session_id, "user", query)
+            await db.save_conversation(user_id, session_id, "assistant", assistant_message)
 
             return {
                 "response": assistant_message,
