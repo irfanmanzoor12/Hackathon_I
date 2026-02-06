@@ -4,7 +4,7 @@ import Link from '@docusaurus/Link';
 
 export default function NotFound() {
   return (
-    <Layout title="Page Not Found">
+    <Layout title="Physical AI & Humanoid Robotics.">
       <main style={{
         padding: '4rem 2rem',
         maxWidth: '900px',
